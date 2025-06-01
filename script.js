@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const optionsHint = document.querySelector(".options-hint");
   const optionsList = document.querySelector(".options-list");
   const optionsSection = document.querySelector(".options-section");
+  const searchInput = document.querySelector(".options-search input");
   const commandOutput = document.querySelector(".command-output");
   const commandCopy = document.querySelector(".command-copy");
   const commandReset = document.querySelector(".command-reset");
@@ -126,6 +127,32 @@ document.addEventListener("DOMContentLoaded", () => {
       optionsList.appendChild(listItem);
     });
 
+  // Add search functionality
+  function filterOptions(searchTerm) {
+    const normalizedSearch = searchTerm.toLowerCase().trim();
+    const listItems = optionsList.querySelectorAll("li");
+
+    listItems.forEach((item) => {
+      const text = item.textContent.toLowerCase();
+      if (text.includes(normalizedSearch)) {
+        item.style.display = "";
+      } else {
+        item.style.display = "none";
+      }
+    });
+  }
+
+  // Add event listener for search input
+  searchInput.addEventListener("input", (e) => {
+    filterOptions(e.target.value);
+  });
+
+  // Clear search when section becomes inactive
+  function clearSearch() {
+    searchInput.value = "";
+    filterOptions("");
+  }
+
   // Get wheel slots (already in DOM)
   // Ensure they are in the correct order based on data-index
   const slotElements = Array.from(wheelContainer.querySelectorAll(".wheel-slot"));
@@ -142,6 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
         selectedWheelSlotIndex = null;
         // Remove 'is-selected' from all list items
         document.querySelectorAll(".options-list li.is-selected").forEach((opt) => opt.classList.remove("is-selected"));
+        clearSearch(); // Clear search when slot is deselected
         if (optionsSection) {
           optionsSection.prepend(optionsHint);
           optionsSection.classList.remove("is-active");

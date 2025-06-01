@@ -1,3 +1,8 @@
+* {
+  font-family: "Radiance", sans-serif;
+  letter-spacing: 1px;
+}
+
 html {
   background-color: #1d1e21;
   height: 100%;
@@ -12,8 +17,6 @@ body {
   margin: 0;
   min-height: 100%;
   color: #949ea1;
-  font-family: "Radiance", sans-serif;
-  letter-spacing: 1px;
 }
 
 .main-container,
@@ -134,8 +137,8 @@ body {
 
 .options-hint {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   height: 100%;
 }
 
@@ -144,6 +147,23 @@ body {
   margin-bottom: 16px;
   border-bottom: 1px solid #424b46;
   padding-bottom: 4px;
+}
+
+.options-search {
+  position: sticky;
+  top: -24px;
+  margin-bottom: 8px;
+
+  input {
+    box-sizing: border-box;
+    outline: none;
+    border: 1px solid #424b46;
+    border-radius: 4px;
+    background-color: #2c3031;
+    padding: 8px;
+    width: 100%;
+    color: #fdedd5;
+  }
 }
 
 .options-list {
@@ -177,6 +197,7 @@ body {
   resize: none;
   color: white;
   font-family: monospace;
+  letter-spacing: 0;
   word-break: break-all;
 }
 
@@ -190,7 +211,6 @@ body {
   padding: 16px;
   color: white;
   font-size: medium;
-  font-family: "Radiance", sans-serif;
   white-space: nowrap;
 }
 
