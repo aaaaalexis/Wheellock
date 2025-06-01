@@ -122,14 +122,21 @@ body {
   height: 480px;
   overflow-y: auto;
 
-  &:not(.is-active) {
-    pointer-events: none;
+  &:not(.is-active) :not(.options-hint) {
+    display: none;
   }
 
   &.is-active {
     box-shadow: 0 0 16px black;
     background: linear-gradient(#2d3856, #1f242b);
   }
+}
+
+.options-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
 .options-header {

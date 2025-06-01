@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const wheelContainer = document.querySelector(".wheel-container");
+  const optionsHint = document.querySelector(".options-hint");
   const optionsList = document.querySelector(".options-list");
   const optionsSection = document.querySelector(".options-section");
   const commandOutput = document.querySelector(".command-output");
@@ -142,6 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Remove 'is-selected' from all list items
         document.querySelectorAll(".options-list li.is-selected").forEach((opt) => opt.classList.remove("is-selected"));
         if (optionsSection) {
+          optionsSection.prepend(optionsHint);
           optionsSection.classList.remove("is-active");
         }
       } else {
@@ -163,6 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         if (optionsSection) {
           optionsSection.classList.add("is-active");
+          optionsHint.remove();
         }
       }
     });
