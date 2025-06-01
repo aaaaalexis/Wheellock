@@ -56,15 +56,47 @@ body {
   height: 90%;
 }
 
+/* SVG container for connecting lines */
+.wheel-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -10;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.wheel-line {
+  stroke: #292d2e;
+  stroke-width: 3;
+}
+
 .wheel-center {
   display: flex;
   position: absolute;
   justify-content: center;
   align-items: center;
+  width: 8em;
 
   img {
-    width: 80%;
+    width: 100%;
     height: auto;
+  }
+
+  &::before {
+    position: absolute;
+    z-index: -1;
+    border-radius: 100%;
+    background: radial-gradient(closest-side, #1d1e21 50%, transparent);
+    width: 200%;
+    height: 200%;
+    content: "";
   }
 }
 
