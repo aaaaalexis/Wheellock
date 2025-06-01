@@ -59,8 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const optionsList = document.querySelector(".options-list");
   const commandOutput = document.querySelector(".command-output");
   const copyCommandButton = document.querySelector(".command-copy");
-  const resetButton = document.querySelector(".command-reset"); // Added this line
-  const optionsSection = document.querySelector(".options-section"); // Added this line
+  const resetButton = document.querySelector(".command-reset");
+  const optionsSection = document.querySelector(".options-section");
 
   const WHEEL_SELECTIONS_STORAGE_KEY = "chatwheel";
 
@@ -84,7 +84,6 @@ document.addEventListener("DOMContentLoaded", () => {
           parsedSelections.forEach((selection, index) => {
             if (selection && selection.id && selection.text) {
               wheelSelections[index] = selection;
-              // Update the visual representation in the wheel slot
               if (wheelSlots[index]) {
                 wheelSlots[index].textContent = selection.text;
                 wheelSlots[index].dataset.id = selection.id;
