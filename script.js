@@ -61,10 +61,45 @@ document.addEventListener("DOMContentLoaded", () => {
   const copyCommandButton = document.querySelector(".command-copy");
   const optionsSection = document.querySelector(".options-section"); // Added this line
 
+  const WHEEL_SELECTIONS_STORAGE_KEY = "chatWheel";
+
   const wheelSlots = [];
   const numWheelSlots = 8;
   let selectedWheelSlotIndex = null;
   const wheelSelections = Array(numWheelSlots).fill(null); // To store {id, text} for each slot
+
+  // Function to save wheel selections to localStorage
+  function saveWheelSelections() {
+    localStorage.setItem(WHEEL_SELECTIONS_STORAGE_KEY, JSON.stringify(wheelSelections));
+  }
+
+  // Function to load wheel selections from localStorage
+  function loadWheelSelections() {
+    const storedSelections = localStorage.getItem(WHEEL_SELECTIONS_STORAGE_KEY);
+    if (storedSelections) {
+      try {
+        const parsedSelections = JSON.parse(storedSelections);
+        if (Array.isArray(parsedSelections) && parsedSelections.length === numWheelSlots) {
+          parsedSelections.forEach((selection, index) => {
+            if (selection && selection.id && selection.text) {
+              wheelSelections[index] = selection;
+              // Update the visual representation in the wheel slot
+              if (wheelSlots[index]) {
+                wheelSlots[index].textContent = selection.text;
+                wheelSlots[index].dataset.id = selection.id;
+              }
+            }
+          });
+          return true; // Indicate that selections were loaded
+        }
+      } catch (e) {
+        console.error("Error parsing stored wheel selections:", e);
+        // Clear corrupted data
+        localStorage.removeItem(WHEEL_SELECTIONS_STORAGE_KEY);
+      }
+    }
+    return false; // Indicate no valid selections were loaded
+  }
 
   // Populate options list
   Object.entries(phrases)
@@ -84,6 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
           document.querySelectorAll(".options-list li.is-selected").forEach((opt) => opt.classList.remove("is-selected"));
           listItem.classList.add("is-selected");
           updateCommandOutput(); // Update command when an option is selected
+          saveWheelSelections(); // Save after updating
         }
       });
       optionsList.appendChild(listItem);
@@ -163,25 +199,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Pre-fill from the example image if desired
-  const imageWheelState = {
-    0: 1, // Top: Going In (ping_wheel_phrase_0)
-    1: 6, // Left 1: Stay Together (ping_wheel_phrase_1)
-    2: 18, // Left 2: Good Job (ping_wheel_phrase_2)
-    3: 5, // Left 3: Retreat (ping_wheel_phrase_3)
-    4: 2, // Right 1: Help (ping_wheel_phrase_4)
-    5: 4, // Right 2: Thanks (ping_wheel_phrase_5)
-    6: 34, // Right 3: What's the plan? (Need Plan) (ping_wheel_phrase_6)
-    7: 42, // Bottom: Headed To Lane... (Contextual Slot) (ping_wheel_phrase_7)
-  };
+  // Load selections first. If not found, then pre-fill from the example image.
+  const selectionsLoaded = loadWheelSelections();
 
-  Object.entries(imageWheelState).forEach(([slotIdx, phraseId]) => {
-    const slotIndex = parseInt(slotIdx);
-    if (phrases[phraseId]) {
-      wheelSlots[slotIndex].textContent = phrases[phraseId];
-      wheelSlots[slotIndex].dataset.id = phraseId;
-      wheelSelections[slotIndex] = { id: phraseId, text: phrases[phraseId] };
-    }
-  });
+  // Pre-fill from the example image if desired and nothing was loaded from localStorage
+  if (!selectionsLoaded) {
+    const imageWheelState = {
+      0: 1, // Top: Going In (ping_wheel_phrase_0)
+      1: 6, // Left 1: Stay Together (ping_wheel_phrase_1)
+      2: 18, // Left 2: Good Job (ping_wheel_phrase_2)
+      3: 5, // Left 3: Retreat (ping_wheel_phrase_3)
+      4: 2, // Right 1: Help (ping_wheel_phrase_4)
+      5: 4, // Right 2: Thanks (ping_wheel_phrase_5)
+      6: 34, // Right 3: What's the plan? (Need Plan) (ping_wheel_phrase_6)
+      7: 42, // Bottom: Headed To Lane... (Contextual Slot) (ping_wheel_phrase_7)
+    };
+
+    Object.entries(imageWheelState).forEach(([slotIdx, phraseId]) => {
+      const slotIndex = parseInt(slotIdx);
+      if (phrases[phraseId]) {
+        wheelSlots[slotIndex].textContent = phrases[phraseId];
+        wheelSlots[slotIndex].dataset.id = phraseId;
+        wheelSelections[slotIndex] = { id: phraseId, text: phrases[phraseId] };
+      }
+    });
+  } // This closing brace was added to correctly scope the if(!selectionsLoaded) block
   updateCommandOutput();
 });
