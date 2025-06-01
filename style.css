@@ -1,3 +1,10 @@
+@font-face {
+  font-style: normal;
+  font-weight: normal;
+  src: url("https://cdn.akamai.steamstatic.com/apps/dota2/fonts/radiance.woff") format("woff");
+  font-family: "Radiance";
+}
+
 * {
   font-family: "Radiance", sans-serif;
   letter-spacing: 1px;
