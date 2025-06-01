@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const resetButton = document.querySelector(".command-reset"); // Added this line
   const optionsSection = document.querySelector(".options-section"); // Added this line
 
-  const WHEEL_SELECTIONS_STORAGE_KEY = "chatWheel";
+  const WHEEL_SELECTIONS_STORAGE_KEY = "chatwheel";
 
   const wheelSlots = [];
   const numWheelSlots = 8;
