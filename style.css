@@ -118,7 +118,7 @@ body {
   border: 2px solid black;
   border-radius: 2px;
   padding: 48px 24px;
-  height: 480px; /* Fixed height for scrollbar */
+  height: 480px;
   overflow-y: auto;
 
   &:not(.is-active) {

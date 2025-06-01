@@ -212,14 +212,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to reset the wheel to default
   function resetToDefault() {
     const imageWheelState = {
-      0: 1, // Top: Going In (ping_wheel_phrase_0)
-      1: 6, // Left 1: Stay Together (ping_wheel_phrase_1)
-      2: 18, // Left 2: Good Job (ping_wheel_phrase_2)
-      3: 5, // Left 3: Retreat (ping_wheel_phrase_3)
-      4: 2, // Right 1: Help (ping_wheel_phrase_4)
-      5: 4, // Right 2: Thanks (ping_wheel_phrase_5)
-      6: 34, // Right 3: What's the plan? (Need Plan) (ping_wheel_phrase_6)
-      7: 42, // Bottom: Headed To Lane... (Contextual Slot) (ping_wheel_phrase_7)
+      0: 1, // Top (ping_wheel_phrase_0)
+      1: 2, // Right 1 (ping_wheel_phrase_1)
+      2: 4, // Right 2 (ping_wheel_phrase_2)
+      3: 34, // Right 3 (ping_wheel_phrase_3)
+      4: 18, // Bottom (ping_wheel_phrase_4)
+      5: 5, // Left 3 (ping_wheel_phrase_5)
+      6: 42, // Left 2 (ping_wheel_phrase_6)
+      7: 6, // Left 1 (ping_wheel_phrase_7)
     };
 
     Object.entries(imageWheelState).forEach(([slotIdx, phraseId]) => {
