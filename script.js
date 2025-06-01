@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(() => {
           // Optional: Show a temporary message like "Copied!"
           const originalText = copyCommandButton.textContent;
-          copyCommandButton.textContent = "Copied!";
+          copyCommandButton.textContent = "COPIED!";
           setTimeout(() => {
             copyCommandButton.textContent = originalText;
           }, 1500);
