@@ -58,7 +58,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const wheelContainer = document.querySelector(".wheel-container");
   const optionsList = document.querySelector(".options-list");
   const commandOutput = document.querySelector(".command-output");
-  const copyCommandButton = document.querySelector(".copy-command-button");
+  const copyCommandButton = document.querySelector(".command-copy");
+  const optionsSection = document.querySelector(".options-section"); // Added this line
 
   const wheelSlots = [];
   const numWheelSlots = 8;
@@ -80,8 +81,8 @@ document.addEventListener("DOMContentLoaded", () => {
           // Store the selection
           wheelSelections[selectedWheelSlotIndex] = { id, text };
           // Update the options list to show this as selected for the current slot
-          document.querySelectorAll(".options-list li.selected-option").forEach((opt) => opt.classList.remove("selected-option"));
-          listItem.classList.add("selected-option");
+          document.querySelectorAll(".options-list li.is-selected").forEach((opt) => opt.classList.remove("is-selected"));
+          listItem.classList.add("is-selected");
           updateCommandOutput(); // Update command when an option is selected
         }
       });
@@ -97,20 +98,35 @@ document.addEventListener("DOMContentLoaded", () => {
   // Add event listeners to the new static slots
   wheelSlots.forEach((slot, index) => {
     slot.addEventListener("click", () => {
-      // Deselect previously selected slot (if any)
-      wheelSlots.forEach((s) => s.classList.remove("selected"));
-      // Select current slot
-      slot.classList.add("selected");
-      selectedWheelSlotIndex = parseInt(slot.dataset.index);
+      const slotIndex = parseInt(slot.dataset.index);
+      // If the clicked slot is already selected
+      if (slot.classList.contains("selected")) {
+        slot.classList.remove("selected");
+        selectedWheelSlotIndex = null;
+        // Remove 'is-selected' from all list items
+        document.querySelectorAll(".options-list li.is-selected").forEach((opt) => opt.classList.remove("is-selected"));
+        if (optionsSection) {
+          optionsSection.classList.remove("is-active");
+        }
+      } else {
+        // Deselect previously selected slot (if any)
+        wheelSlots.forEach((s) => s.classList.remove("selected"));
+        // Select current slot
+        slot.classList.add("selected");
+        selectedWheelSlotIndex = slotIndex;
 
-      // Highlight the corresponding item in the options list if it's already set
-      document.querySelectorAll(".options-list li.selected-option").forEach((opt) => opt.classList.remove("selected-option"));
-      const currentSelection = wheelSelections[selectedWheelSlotIndex];
-      if (currentSelection) {
-        const optionListItem = optionsList.querySelector(`li[data-id='${currentSelection.id}']`);
-        if (optionListItem) {
-          optionListItem.classList.add("selected-option");
-          optionListItem.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        // Highlight the corresponding item in the options list if it's already set
+        document.querySelectorAll(".options-list li.is-selected").forEach((opt) => opt.classList.remove("is-selected"));
+        const currentSelection = wheelSelections[selectedWheelSlotIndex];
+        if (currentSelection) {
+          const optionListItem = optionsList.querySelector(`li[data-id='${currentSelection.id}']`);
+          if (optionListItem) {
+            optionListItem.classList.add("is-selected");
+            optionListItem.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          }
+        }
+        if (optionsSection) {
+          optionsSection.classList.add("is-active");
         }
       }
     });
