@@ -9,3 +9,5 @@ This project is licensed under the MIT License.
 ## Disclaimer
 
 This project was built with the assistance of Gemini 2.5 Pro.
+
+This project is not affiliated with, endorsed by, or in any way officially connected with Valve Corporation. Any trademarks or registered trademarks are the property of their respective owners. This project will be taken down or modified if requested by Valve Corporation.
