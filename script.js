@@ -110,6 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const optionListItem = optionsList.querySelector(`li[data-id='${currentSelection.id}']`);
         if (optionListItem) {
           optionListItem.classList.add("selected-option");
+          optionListItem.scrollIntoView({ behavior: "smooth", block: "nearest" });
         }
       }
     });
