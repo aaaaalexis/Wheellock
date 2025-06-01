@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const optionsList = document.querySelector(".options-list");
   const commandOutput = document.querySelector(".command-output");
   const copyCommandButton = document.querySelector(".command-copy");
+  const resetButton = document.querySelector(".command-reset"); // Added this line
   const optionsSection = document.querySelector(".options-section"); // Added this line
 
   const WHEEL_SELECTIONS_STORAGE_KEY = "chatWheel";
@@ -187,7 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(() => {
           // Optional: Show a temporary message like "Copied!"
           const originalText = copyCommandButton.textContent;
-          copyCommandButton.textContent = "COPIED!";
+          copyCommandButton.textContent = "Command copied!";
           setTimeout(() => {
             copyCommandButton.textContent = originalText;
           }, 1500);
@@ -204,6 +205,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Pre-fill from the example image if desired and nothing was loaded from localStorage
   if (!selectionsLoaded) {
+    resetToDefault();
+  }
+  updateCommandOutput();
+
+  // Function to reset the wheel to default
+  function resetToDefault() {
     const imageWheelState = {
       0: 1, // Top: Going In (ping_wheel_phrase_0)
       1: 6, // Left 1: Stay Together (ping_wheel_phrase_1)
@@ -223,6 +230,23 @@ document.addEventListener("DOMContentLoaded", () => {
         wheelSelections[slotIndex] = { id: phraseId, text: phrases[phraseId] };
       }
     });
-  } // This closing brace was added to correctly scope the if(!selectionsLoaded) block
-  updateCommandOutput();
+    saveWheelSelections(); // Save the default selections
+    updateCommandOutput(); // Update the command output
+    // Optionally, visually update the options list if a slot is selected
+    if (selectedWheelSlotIndex !== null) {
+      document.querySelectorAll(".options-list li.is-selected").forEach((opt) => opt.classList.remove("is-selected"));
+      const currentSelection = wheelSelections[selectedWheelSlotIndex];
+      if (currentSelection) {
+        const optionListItem = optionsList.querySelector(`li[data-id='${currentSelection.id}']`);
+        if (optionListItem) {
+          optionListItem.classList.add("is-selected");
+        }
+      }
+    }
+  }
+
+  // Event listener for the reset button
+  resetButton.addEventListener("click", () => {
+    resetToDefault();
+  });
 });

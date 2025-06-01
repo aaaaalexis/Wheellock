@@ -1,6 +1,6 @@
 html {
-  height: 100%;
   background-color: #1d1e21;
+  height: 100%;
 }
 
 body {
@@ -9,11 +9,11 @@ body {
   justify-content: center;
   align-items: center;
   gap: 32px;
+  margin: 0;
+  min-height: 100%;
   color: #949ea1;
   font-family: "Radiance", sans-serif;
   letter-spacing: 1px;
-  margin: 0;
-  min-height: 100%;
 }
 
 .main-container,
@@ -24,8 +24,8 @@ body {
 }
 
 .main-container {
-  user-select: none;
   gap: 48px;
+  user-select: none;
 }
 
 .wheel-section {
@@ -114,12 +114,12 @@ body {
 
 .options-section {
   flex: 1;
+  transition: 0.2s;
   border: 2px solid black;
   border-radius: 2px;
   padding: 48px 24px;
   height: 480px; /* Fixed height for scrollbar */
   overflow-y: auto;
-  transition: 0.2s;
 
   &:not(.is-active) {
     opacity: 0.7;
@@ -175,18 +175,23 @@ body {
   word-break: break-all;
 }
 
+.command-reset,
 .command-copy {
   transition: 0.2s;
   cursor: pointer;
   border: none;
   border-radius: 8px;
-  background: linear-gradient(#373e45, #4e5961);
+  background-color: #2c3031;
   padding: 16px;
-  font-size: medium;
   color: white;
-  white-space: nowrap;
-  text-shadow: 2px 2px black;
+  font-size: medium;
   font-family: "Radiance", sans-serif;
+  white-space: nowrap;
+}
+
+.command-copy {
+  background: linear-gradient(#373e45, #4e5961);
+  text-shadow: 2px 2px black;
 }
 
 @media only screen and (max-width: 768px) {
@@ -196,8 +201,8 @@ body {
 
   .main-container {
     flex-direction: column;
-    margin-top: 48px;
     gap: 16px;
+    margin-top: 48px;
   }
 
   .options-section {
