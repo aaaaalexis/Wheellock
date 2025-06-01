@@ -57,10 +57,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const wheelContainer = document.querySelector(".wheel-container");
   const optionsList = document.querySelector(".options-list");
-  const commandOutput = document.querySelector(".command-output");
-  const copyCommandButton = document.querySelector(".command-copy");
-  const resetButton = document.querySelector(".command-reset");
   const optionsSection = document.querySelector(".options-section");
+  const commandOutput = document.querySelector(".command-output");
+  const commandCopy = document.querySelector(".command-copy");
+  const commandReset = document.querySelector(".command-reset");
 
   const WHEEL_SELECTIONS_STORAGE_KEY = "chatwheel";
 
@@ -180,16 +180,16 @@ document.addEventListener("DOMContentLoaded", () => {
     commandOutput.value = command.trim();
   }
 
-  copyCommandButton.addEventListener("click", () => {
+  commandCopy.addEventListener("click", () => {
     if (commandOutput.value) {
       navigator.clipboard
         .writeText(commandOutput.value)
         .then(() => {
           // Optional: Show a temporary message like "Copied!"
-          const originalText = copyCommandButton.textContent;
-          copyCommandButton.textContent = "Command copied!";
+          const originalText = commandCopy.textContent;
+          commandCopy.textContent = "Command copied!";
           setTimeout(() => {
-            copyCommandButton.textContent = originalText;
+            commandCopy.textContent = originalText;
           }, 1500);
         })
         .catch((err) => {
@@ -245,7 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Event listener for the reset button
-  resetButton.addEventListener("click", () => {
+  commandReset.addEventListener("click", () => {
     resetToDefault();
   });
 });
