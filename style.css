@@ -11,15 +11,14 @@
 }
 
 body {
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 32px;
   margin: 0;
-  background-color: #1d1e21;
-  padding: 48px;
+  background: linear-gradient(#232326, #1d1e21);
+  min-height: 100vh;
   color: #949ea1;
 }
 
@@ -222,6 +221,7 @@ body {
 
 .command-container {
   gap: 16px;
+  margin-bottom: 48px;
 }
 
 .command-output {
@@ -263,6 +263,7 @@ body {
   .main-container {
     flex-direction: column;
     gap: 16px;
+    margin-top: 48px;
   }
 
   .options-section {
