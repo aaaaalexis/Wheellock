@@ -1,4 +1,4 @@
-# Deadlock Web Chat Wheel Customizer
+# Deadlock Chat Wheel Customizer
 
 This is a simple web application to help users customize their in-game chat wheel for the game Deadlock by Valve. It allows users to assign predefined and hidden phrases to the chat wheel and generates a console command that can be used in the game to apply these settings.
 
